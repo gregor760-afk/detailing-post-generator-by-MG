@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KG CONSULTING – Generator Postów Social Media</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0a0a0f 0%, #111118 50%, #0d0d14 100%);
+    color: #e8e4d8;
+    font-family: Georgia, 'Times New Roman', serif;
+  }
+
+  .header {
+    background: linear-gradient(90deg, #1a1408 0%, #0d0d0d 50%, #1a1408 100%);
+    border-bottom: 1px solid #b8860b33;
+    padding: 24px 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-icon {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, #b8860b, #d4a017);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    box-shadow: 0 0 20px #b8860b44;
+    flex-shrink: 0;
+  }
+  .header h1 { font-size: 20px; font-weight: 700; letter-spacing: 0.05em; color: #d4a017; }
+  .header p { font-size: 11px; color: #8a7a5a; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 3px; font-family: sans-serif; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 32px 24px 60px; }
+
+  .grid { display: grid; gap: 24px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-side { display: grid; grid-template-columns: 220px 1fr; gap: 20px; }
+
+  @media (max-width: 700px) {
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-side { grid-template-columns: 1fr; }
+    .header { padding: 16px 20px; }
+    .container { padding: 20px 12px 60px; }
+  }
+
+  .section {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid #1e1c18;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .section-title {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 14px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: #8a7a5a; font-family: sans-serif;
+  }
+  .check-badge {
+    background: #2a3a1a; border: 1px solid #4a7a2a;
+    border-radius: 50%; width: 16px; height: 16px;
+    display: none; align-items: center; justify-content: center;
+    font-size: 9px; color: #6aaa4a;
+  }
+  .check-badge.visible { display: flex; }
+
+  .course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 10px;
+  }
+
+  .opt-btn {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid #2a2520;
+    border-radius: 8px;
+    padding: 11px 14px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+    color: #e8e4d8;
+    width: 100%;
+  }
+  .opt-btn:hover { border-color: #4a3a18; background: rgba(255,255,255,0.05); }
+  .opt-btn.selected {
+    background: linear-gradient(135deg, #2a1f06, #3a2a08);
+    border-color: #b8860b;
+    box-shadow: 0 0 12px #b8860b22;
+  }
+  .opt-btn .label {
+    font-size: 12px; font-weight: 600;
+    color: #c8b89a; font-family: sans-serif;
+    transition: color 0.15s;
+  }
+  .opt-btn.selected .label { color: #d4a017; }
+  .opt-btn .sublabel {
+    font-size: 10px; color: #6a6050;
+    margin-top: 3px; font-family: sans-serif;
+    line-height: 1.3;
+  }
+  .opt-btn .emoji { font-size: 20px; margin-bottom: 6px; display: block; }
+
+  .row-btn {
+    display: flex; align-items: flex-start; gap: 10px;
+  }
+  .row-btn .ico { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  .opt-list { display: flex; flex-direction: column; gap: 8px; }
+
+  textarea {
+    width: 100%; height: 128px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid #2a2520;
+    border-radius: 8px;
+    padding: 12px;
+    color: #e8e4d8;
+    font-size: 13px;
+    font-family: sans-serif;
+    resize: vertical;
+    outline: none;
+    line-height: 1.6;
+    transition: border-color 0.15s;
+  }
+  textarea:focus { border-color: #b8860b; }
+  textarea::placeholder { color: #4a4038; }
+
+  .gen-wrap { text-align: center; }
+  .gen-btn {
+    background: linear-gradient(135deg, #b8860b, #d4a017, #b8860b);
+    border: none; border-radius: 10px;
+    padding: 16px 52px;
+    font-size: 14px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: #0a0808;
+    cursor: pointer;
+    font-family: sans-serif;
+    transition: all 0.2s;
+    box-shadow: 0 0 30px #b8860b44;
+  }
+  .gen-btn:hover { box-shadow: 0 0 40px #b8860b66; transform: translateY(-1px); }
+  .gen-btn:disabled {
+    background: rgba(255,255,255,0.05);
+    color: #4a4040; cursor: not-allowed;
+    box-shadow: none; transform: none;
+  }
+  .gen-hint { color: #5a5040; font-size: 12px; margin-top: 8px; font-family: sans-serif; }
+
+  .output-wrap { position: relative; }
+  .output-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid #b8860b44;
+    border-radius: 8px;
+    padding: 20px;
+    font-size: 13px; line-height: 1.85;
+    white-space: pre-wrap;
+    font-family: sans-serif;
+    color: #e0dac8;
+    min-height: 100px;
+  }
+  .output-actions {
+    position: absolute; top: 12px; right: 12px;
+    display: flex; gap: 8px;
+  }
+  .copy-btn {
+    background: rgba(0,0,0,0.6);
+    border: 1px solid #3a3020;
+    border-radius: 6px; padding: 6px 14px;
+    color: #b8a888; cursor: pointer;
+    font-size: 12px; font-family: sans-serif;
+    transition: all 0.2s;
+  }
+  .copy-btn:hover { border-color: #b8860b; color: #d4a017; }
+  .copy-btn.copied { background: #1a3a1a; border-color: #4a9a4a; color: #6ada6a; }
+  .dl-btn {
+    background: rgba(0,0,0,0.6);
+    border: 1px solid #3a3020;
+    border-radius: 6px; padding: 6px 14px;
+    color: #b8a888; cursor: pointer;
+    font-size: 12px; font-family: sans-serif;
+    transition: all 0.2s;
+  }
+  .dl-btn:hover { border-color: #b8860b; color: #d4a017; }
+
+  .variant-btn {
+    background: rgba(184,134,11,0.1);
+    border: 1px solid #b8860b44;
+    border-radius: 6px; padding: 8px 18px;
+    color: #b8a060; cursor: pointer;
+    font-size: 12px; font-family: sans-serif;
+    margin-top: 10px; transition: all 0.15s;
+  }
+  .variant-btn:hover { background: rgba(184,134,11,0.18); }
+
+  .spinner {
+    display: inline-block; width: 16px; height: 16px;
+    border: 2px solid #3a3020; border-top-color: #b8860b;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    vertical-align: middle; margin-right: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .error-box {
+    background: #2a0a0a; border: 1px solid #aa2222;
+    border-radius: 8px; padding: 14px;
+    color: #ff8888; font-size: 13px; font-family: sans-serif;
+  }
+
+  .loading-text::after {
+    content: '';
+    animation: dots 1.4s steps(4, end) infinite;
+  }
+  @keyframes dots {
+    0%, 20% { content: ''; }
+    40% { content: '.'; }
+    60% { content: '..'; }
+    80%, 100% { content: '...'; }
+  }
+
+  .apikey-section {
+    background: rgba(184,134,11,0.06);
+    border: 1px solid #b8860b44;
+    border-radius: 10px; padding: 18px 20px;
+    margin-bottom: 8px;
+  }
+  .apikey-section p {
+    font-size: 12px; color: #9a8a6a; font-family: sans-serif;
+    line-height: 1.6; margin-bottom: 10px;
+  }
+  .apikey-section a { color: #d4a017; }
+  .apikey-row { display: flex; gap: 10px; align-items: center; }
+  .apikey-input {
+    flex: 1; background: rgba(0,0,0,0.4);
+    border: 1px solid #3a3020; border-radius: 6px;
+    padding: 10px 12px; color: #e8e4d8;
+    font-size: 13px; font-family: monospace;
+    outline: none; transition: border-color 0.15s;
+  }
+  .apikey-input:focus { border-color: #b8860b; }
+  .apikey-save {
+    background: #2a1f06; border: 1px solid #b8860b;
+    border-radius: 6px; padding: 10px 18px;
+    color: #d4a017; cursor: pointer; font-size: 12px;
+    font-family: sans-serif; font-weight: 600;
+    white-space: nowrap; transition: all 0.15s;
+  }
+  .apikey-save:hover { background: #3a2f0e; }
+  .apikey-status { font-size: 11px; font-family: sans-serif; margin-top: 6px; }
+  .apikey-status.ok { color: #6ada6a; }
+  .apikey-status.none { color: #9a7a4a; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-icon">✦</div>
+  <div>
+    <h1>KG CONSULTING — Generator Postów</h1>
+    <p>Instagram &amp; Facebook · Szkolenia Detailingowe · Dofinansowanie UE 95%</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="grid">
+
+    <div class="apikey-section">
+      <p>Aby generować posty, wprowadź swój klucz API Anthropic. Klucz jest przechowywany tylko lokalnie w przeglądarce i nigdy nie jest wysyłany nigdzie poza API Anthropic.<br>
+      Uzyskaj klucz na: <a href="https://console.anthropic.com/keys" target="_blank">console.anthropic.com/keys</a></p>
+      <div class="apikey-row">
+        <input type="password" class="apikey-input" id="apiKeyInput" placeholder="sk-ant-api03-..." />
+        <button class="apikey-save" onclick="saveApiKey()">Zapisz klucz</button>
+      </div>
+      <div class="apikey-status none" id="apiKeyStatus">Brak klucza API</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">
+        1. Wybierz szkolenie
+        <span class="check-badge" id="badge-course">✓</span>
+      </div>
+      <div class="course-grid" id="courseGrid"></div>
+    </div>
+
+    <div class="grid-2">
+      <div class="section">
+        <div class="section-title">
+          2. Typ posta
+          <span class="check-badge" id="badge-type">✓</span>
+        </div>
+        <div class="opt-list" id="typeList"></div>
+      </div>
+
+      <div class="grid" style="gap:20px">
+        <div class="section">
+          <div class="section-title">
+            3. Platforma
+            <span class="check-badge" id="badge-platform">✓</span>
+          </div>
+          <div class="opt-list" id="platformList"></div>
+        </div>
+        <div class="section">
+          <div class="section-title">
+            4. Ton wypowiedzi
+            <span class="check-badge" id="badge-tone">✓</span>
+          </div>
+          <div class="opt-list" id="toneList"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-side">
+      <div class="section">
+        <div class="section-title">5. Emoji</div>
+        <div class="opt-list" id="emojiList"></div>
+      </div>
+      <div class="section">
+        <div class="section-title">6. Dodatkowe wskazówki (opcjonalne)</div>
+        <textarea id="contextInput" placeholder="Np. data szkolenia, liczba wolnych miejsc, specjalne promocje, lokalizacja, dla kogo jest szkolenie, co szczególnie podkreślić..."></textarea>
+      </div>
+    </div>
+
+    <div class="gen-wrap">
+      <button class="gen-btn" id="genBtn" onclick="generatePost()" disabled>✦ Generuj post</button>
+      <p class="gen-hint" id="genHint">Wybierz szkolenie, typ posta, ton i platformę</p>
+    </div>
+
+    <div class="error-box" id="errorBox" style="display:none"></div>
+
+    <div class="section" id="outputSection" style="display:none">
+      <div class="section-title">✦ Wygenerowany post</div>
+      <div class="output-wrap">
+        <div class="output-box" id="outputBox"></div>
+        <div class="output-actions">
+          <button class="copy-btn" id="copyBtn" onclick="copyPost()">Kopiuj</button>
+          <button class="dl-btn" id="dlBtn" onclick="downloadPost()">⬇ Pobierz HTML</button>
+        </div>
+      </div>
+      <button class="variant-btn" onclick="generatePost()">↻ Generuj wariant</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const COURSES = [
+  { id:1, name:"Podstawy i Korekta Lakieru", emoji:"🪄", desc:"korekta lakieru, polerowanie, usuwanie rys i defektów, machine polishing" },
+  { id:2, name:"Aplikacja Powłok Ochronnych", emoji:"🛡️", desc:"powłoki ceramiczne, nano-ochrona, długotrwałe zabezpieczenie lakieru" },
+  { id:3, name:"Folia PPF – Karoseria", emoji:"🎨", desc:"kolorowa folia PPF na elementy karoserii samochodowej" },
+  { id:4, name:"Renowacja Reflektorów + PPF", emoji:"💡", desc:"renowacja i zabezpieczenie reflektorów, folia PPF na małe elementy" },
+  { id:5, name:"Ekologiczna Renowacja Skór", emoji:"🌿", desc:"renowacja tapicerki skórzanej, ekologiczne środki, zrównoważony detailing" },
+  { id:6, name:"Agenci AI i Automatyzacja", emoji:"🤖", desc:"agenci AI, zielona transformacja, automatyzacja procesów biznesowych" },
+  { id:7, name:"Marketing w Social Mediach", emoji:"📱", desc:"Instagram, Facebook, Canva, komunikacja i marketing w social mediach" },
+  { id:8, name:"Microsoft 365 w praktyce", emoji:"💼", desc:"Excel, Word, PowerPoint, Outlook – efektywna praca biurowa" },
+  { id:9, name:"CapCut i AI – Wideo", emoji:"🎬", desc:"CapCut, AI, automatyzacja przetwarzania wideo i zarządzanie treścią cyfrową" },
+];
+
+const POST_TYPES = [
+  { id:"informacyjny", label:"Informacyjny", icon:"ℹ️", hint:"Fakty o szkoleniu i dofinansowaniu" },
+  { id:"sprzedazowy", label:"Sprzedażowy", icon:"💰", hint:"Zachęca do zapisu, buduje pilność" },
+  { id:"storytelling", label:"Storytelling", icon:"📖", hint:"Historia zmiany, sukces uczestnika" },
+  { id:"edukacyjny", label:"Edukacyjny", icon:"🎓", hint:"Uczy, buduje autorytet eksperta" },
+  { id:"pytanie", label:"Pytanie / Angażujący", icon:"💬", hint:"Zwiększa zasięg organiczny" },
+  { id:"fomo", label:"Pilność / FOMO", icon:"⏰", hint:"Ograniczone miejsca, termin ucieka" },
+];
+
+const TONES = [
+  { id:"profesjonalny", label:"Profesjonalny", icon:"👔" },
+  { id:"luzny", label:"Luźny i przyjacielski", icon:"😊" },
+  { id:"motywacyjny", label:"Motywacyjny", icon:"🔥" },
+  { id:"ekspercki", label:"Ekspercki / Autorytet", icon:"🏆" },
+];
+
+const PLATFORMS = [
+  { id:"instagram", label:"Instagram", icon:"📸" },
+  { id:"facebook", label:"Facebook", icon:"👥" },
+  { id:"oba", label:"Oba kanały", icon:"✨" },
+];
+
+const EMOJIS = [
+  { id:"tak", label:"✅ Tak, używaj emoji" },
+  { id:"nie", label:"🚫 Bez emoji" },
+];
+
+let state = { course:null, type:null, platform:null, tone:null, emoji:"tak" };
+let apiKey = localStorage.getItem("kg_api_key") || "";
+
+window.addEventListener("DOMContentLoaded", () => {
+  if (apiKey) {
+    document.getElementById("apiKeyInput").value = apiKey;
+    document.getElementById("apiKeyStatus").textContent = "✓ Klucz API zapisany";
+    document.getElementById("apiKeyStatus").className = "apikey-status ok";
+  }
+  renderAll();
+});
+
+function saveApiKey() {
+  const val = document.getElementById("apiKeyInput").value.trim();
+  if (!val) return;
+  apiKey = val;
+  localStorage.setItem("kg_api_key", val);
+  document.getElementById("apiKeyStatus").textContent = "✓ Klucz API zapisany";
+  document.getElementById("apiKeyStatus").className = "apikey-status ok";
+}
+
+function renderAll() {
+  renderCourses();
+  renderList("typeList", POST_TYPES, "type", (p) => `<div class="row-btn"><span class="ico">${p.icon}</span><div><div class="label">${p.label}</div><div class="sublabel">${p.hint}</div></div></div>`);
+  renderList("platformList", PLATFORMS, "platform", (p) => `<div class="row-btn"><span class="ico">${p.icon}</span><div class="label">${p.label}</div></div>`);
+  renderList("toneList", TONES, "tone", (t) => `<div class="row-btn"><span class="ico">${t.icon}</span><div class="label">${t.label}</div></div>`);
+  renderList("emojiList", EMOJIS, "emoji", (e) => `<div class="label">${e.label}</div>`);
+}
+
+function renderCourses() {
+  const el = document.getElementById("courseGrid");
+  el.innerHTML = COURSES.map(c => `
+    <button class="opt-btn${state.course===c.id?' selected':''}" onclick="select('course',${c.id})">
+      <span class="emoji">${c.emoji}</span>
+      <div class="label">${c.name}</div>
+    </button>
+  `).join("");
+}
+
+function renderList(containerId, items, key, html) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = items.map(item => `
+    <button class="opt-btn${state[key]===item.id?' selected':''}" onclick="select('${key}','${item.id}')">
+      ${html(item)}
+    </button>
+  `).join("");
+}
+
+function select(key, val) {
+  state[key] = val;
+  renderAll();
+  updateBadges();
+  updateGenBtn();
+}
+
+function updateBadges() {
+  ["course","type","platform","tone"].forEach(k => {
+    const el = document.getElementById("badge-"+k);
+    if (el) el.className = "check-badge" + (state[k] ? " visible" : "");
+  });
+}
+
+function updateGenBtn() {
+  const can = state.course && state.type && state.platform && state.tone;
+  const btn = document.getElementById("genBtn");
+  const hint = document.getElementById("genHint");
+  btn.disabled = !can;
+  hint.style.display = can ? "none" : "block";
+}
+
+async function generatePost() {
+  if (!state.course || !state.type || !state.platform || !state.tone) return;
+  if (!apiKey) { showError("Wprowadź klucz API Anthropic na górze strony."); return; }
+
+  const course = COURSES.find(c => c.id === state.course);
+  const postType = POST_TYPES.find(p => p.id === state.type);
+  const tone = TONES.find(t => t.id === state.tone);
+  const platform = PLATFORMS.find(p => p.id === state.platform);
+  const context = document.getElementById("contextInput").value.trim();
+
+  const platformInstructions = {
+    instagram: "Post na Instagram: max 2200 znaków, używaj paragrafów z odstępami, dodaj 10-15 hashtagów na końcu oddzielonych od treści pustą linią.",
+    facebook: "Post na Facebook: może być dłuższy (do 3000 znaków), bardziej opisowy i konwersacyjny, 3-5 hashtagów lub żadne.",
+    oba: "Napisz DWIE osobne wersje:\n\n📸 INSTAGRAM:\n(wersja z hashtagami, max 2200 znaków)\n\n👥 FACEBOOK:\n(wersja dłuższa, bardziej konwersacyjna)\n\nWyraźnie oznacz każdą sekcję.",
+  };
+
+  const prompt = `Jesteś ekspertem od marketingu w social mediach dla branży automotive i szkoleń zawodowych.\n\nNapisz post na social media dla firmy KG CONSULTING (Krzysztof Gregorek) oferującej profesjonalne szkolenia detailingowe i techniczne.\n\nSZKOLENIE: ${course.name}\nOPIS SZKOLENIA: ${course.desc}\n\nWAŻNE INFORMACJE O FIRMIE I DOFINANSOWANIU:\n- Szkolenie dostępne w Bazie Usług Rozwojowych PARP\n- Możliwość dofinansowania do 95% ze środków Unii Europejskiej (Fundusze Europejskie)\n- Cena szkolenia: od 5 200 zł brutto (20 godzin, 2 dni intensywne)\n- Lokalizacja: Zabrze lub Paniówki (region śląski)\n- Firma: KG CONSULTING Krzysztof Gregorek\n- Ocena uczestników: 4,9/5 na podstawie 223 ocen\n- Link do zapisów: https://uslugirozwojowe.parp.gov.pl/wyszukiwarka/dostawca-uslug/podglad?id=190292\n\nTYP POSTA: ${postType.label} – ${postType.hint}\nTON WYPOWIEDZI: ${tone.label}\nPLATFORMA: ${platform.label}\n${platformInstructions[state.platform]}\nEMOJI: ${state.emoji === "tak" ? "Używaj emoji – wzbogacają post i zwiększają zaangażowanie" : "NIE używaj żadnych emoji"}\n\n${context ? "DODATKOWE WSKAZÓWKI:\n"+context : ""}\n\nZASADY TWORZENIA POSTA:\n- Naturalny, autentyczny język po polsku\n- Podkreśl korzyść finansową z dofinansowania UE (to główny argument)\n- Nie brzmi jak natarczywa reklama – brzmi jak ekspercka rekomendacja lub ciekawa informacja\n- Call-to-action musi być konkretny i zachęcający\n- Pisz bezpośrednio do docelowego odbiorcy (właściciel warsztatu, detailer, pracownik chcący się dokształcić)\n\nNapisz TYLKO gotowy post (lub dwie wersje jeśli oba kanały). Bez żadnych komentarzy, tytułów, wstępów ani wyjaśnień.`;
+
+  const btn = document.getElementById("genBtn");
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span><span class="loading-text">Generuję post</span>';
+  document.getElementById("errorBox").style.display = "none";
+
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
+        "anthropic-dangerous-direct-browser-access": "true",
+      },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1200,
+        messages: [{ role: "user", content: prompt }],
+      }),
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error?.message || `Błąd HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+    const text = (data.content || []).map(b => b.text || "").join("");
+    document.getElementById("outputBox").textContent = text;
+    document.getElementById("outputSection").style.display = "block";
+    document.getElementById("outputSection").scrollIntoView({ behavior: "smooth", block: "nearest" });
+  } catch (e) {
+    showError("Błąd generowania: " + e.message);
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = "✦ Generuj post";
+}
+
+function showError(msg) {
+  const el = document.getElementById("errorBox");
+  el.textContent = msg;
+  el.style.display = "block";
+}
+
+function copyPost() {
+  const text = document.getElementById("outputBox").textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById("copyBtn");
+    btn.textContent = "✓ Skopiowano!";
+    btn.classList.add("copied");
+    setTimeout(() => { btn.textContent = "Kopiuj"; btn.classList.remove("copied"); }, 2200);
+  });
+}
+
+function downloadPost() {
+  const text = document.getElementById("outputBox").textContent;
+  const course = COURSES.find(c => c.id === state.course);
+  const now = new Date();
+  const dateStr = now.toLocaleDateString("pl-PL", { day:"2-digit", month:"2-digit", year:"numeric" });
+  const escapedText = text.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br>");
+  const html2 = `<!DOCTYPE html><html lang="pl"><head><meta charset="UTF-8"><title>Post KG – ${dateStr}</title><style>body{background:#0a0a0f;color:#e8e4d8;font-family:sans-serif;padding:40px;max-width:680px;margin:0 auto;line-height:1.8;}</style></head><body><h2 style="color:#d4a017;margin-bottom:20px;">KG CONSULTING — ${course?course.name:"Post"}</h2><div>${escapedText}</div><p style="color:#4a4038;font-size:11px;margin-top:30px;">${dateStr}</p></body></html>`;
+  const blob = new Blob([html2], { type: "text/html;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = `kg-post-${dateStr.replace(/\./g,"-")}.html`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
+</script>
+</body>
+</html>
