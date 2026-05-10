@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KG CONSULTING – Generator Postów Social Media</title>
+<title>KG CONSULTING â Generator PostÃ³w Social Media</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -260,10 +260,10 @@
 <body>
 
 <div class="header">
-  <div class="header-icon">✦</div>
+  <div class="header-icon">â¦</div>
   <div>
-    <h1>KG CONSULTING — Generator Postów</h1>
-    <p>Instagram &amp; Facebook · Szkolenia Detailingowe · Dofinansowanie UE 95%</p>
+    <h1>KG CONSULTING â Generator PostÃ³w</h1>
+    <p>Instagram &amp; Facebook Â· Szkolenia Detailingowe Â· Dofinansowanie UE 95%</p>
   </div>
 </div>
 
@@ -271,7 +271,7 @@
   <div class="grid">
 
     <div class="apikey-section">
-      <p>Aby generować posty, wprowadź swój klucz API Anthropic. Klucz jest przechowywany tylko lokalnie w przeglądarce i nigdy nie jest wysyłany nigdzie poza API Anthropic.<br>
+      <p>Aby generowaÄ posty, wprowadÅº swÃ³j klucz API Anthropic. Klucz jest przechowywany tylko lokalnie w przeglÄdarce i nigdy nie jest wysyÅany nigdzie poza API Anthropic.<br>
       Uzyskaj klucz na: <a href="https://console.anthropic.com/keys" target="_blank">console.anthropic.com/keys</a></p>
       <div class="apikey-row">
         <input type="password" class="apikey-input" id="apiKeyInput" placeholder="sk-ant-api03-..." />
@@ -283,7 +283,7 @@
     <div class="section">
       <div class="section-title">
         1. Wybierz szkolenie
-        <span class="check-badge" id="badge-course">✓</span>
+        <span class="check-badge" id="badge-course">â</span>
       </div>
       <div class="course-grid" id="courseGrid"></div>
     </div>
@@ -292,7 +292,7 @@
       <div class="section">
         <div class="section-title">
           2. Typ posta
-          <span class="check-badge" id="badge-type">✓</span>
+          <span class="check-badge" id="badge-type">â</span>
         </div>
         <div class="opt-list" id="typeList"></div>
       </div>
@@ -301,14 +301,14 @@
         <div class="section">
           <div class="section-title">
             3. Platforma
-            <span class="check-badge" id="badge-platform">✓</span>
+            <span class="check-badge" id="badge-platform">â</span>
           </div>
           <div class="opt-list" id="platformList"></div>
         </div>
         <div class="section">
           <div class="section-title">
             4. Ton wypowiedzi
-            <span class="check-badge" id="badge-tone">✓</span>
+            <span class="check-badge" id="badge-tone">â</span>
           </div>
           <div class="opt-list" id="toneList"></div>
         </div>
@@ -321,28 +321,28 @@
         <div class="opt-list" id="emojiList"></div>
       </div>
       <div class="section">
-        <div class="section-title">6. Dodatkowe wskazówki (opcjonalne)</div>
-        <textarea id="contextInput" placeholder="Np. data szkolenia, liczba wolnych miejsc, specjalne promocje, lokalizacja, dla kogo jest szkolenie, co szczególnie podkreślić..."></textarea>
+        <div class="section-title">6. Dodatkowe wskazÃ³wki (opcjonalne)</div>
+        <textarea id="contextInput" placeholder="Np. data szkolenia, liczba wolnych miejsc, specjalne promocje, lokalizacja, dla kogo jest szkolenie, co szczegÃ³lnie podkreÅliÄ..."></textarea>
       </div>
     </div>
 
     <div class="gen-wrap">
-      <button class="gen-btn" id="genBtn" onclick="generatePost()" disabled>✦ Generuj post</button>
-      <p class="gen-hint" id="genHint">Wybierz szkolenie, typ posta, ton i platformę</p>
+      <button class="gen-btn" id="genBtn" onclick="generatePost()" disabled>â¦ Generuj post</button>
+      <p class="gen-hint" id="genHint">Wybierz szkolenie, typ posta, ton i platformÄ</p>
     </div>
 
     <div class="error-box" id="errorBox" style="display:none"></div>
 
     <div class="section" id="outputSection" style="display:none">
-      <div class="section-title">✦ Wygenerowany post</div>
+      <div class="section-title">â¦ Wygenerowany post</div>
       <div class="output-wrap">
         <div class="output-box" id="outputBox"></div>
         <div class="output-actions">
           <button class="copy-btn" id="copyBtn" onclick="copyPost()">Kopiuj</button>
-          <button class="dl-btn" id="dlBtn" onclick="downloadPost()">⬇ Pobierz HTML</button>
+          <button class="dl-btn" id="dlBtn" onclick="downloadPost()">â¬ Pobierz HTML</button>
         </div>
       </div>
-      <button class="variant-btn" onclick="generatePost()">↻ Generuj wariant</button>
+      <button class="variant-btn" onclick="generatePost()">â» Generuj wariant</button>
     </div>
 
   </div>
@@ -350,42 +350,42 @@
 
 <script>
 const COURSES = [
-  { id:1, name:"Podstawy i Korekta Lakieru", emoji:"🪄", desc:"korekta lakieru, polerowanie, usuwanie rys i defektów, machine polishing" },
-  { id:2, name:"Aplikacja Powłok Ochronnych", emoji:"🛡️", desc:"powłoki ceramiczne, nano-ochrona, długotrwałe zabezpieczenie lakieru" },
-  { id:3, name:"Folia PPF – Karoseria", emoji:"🎨", desc:"kolorowa folia PPF na elementy karoserii samochodowej" },
-  { id:4, name:"Renowacja Reflektorów + PPF", emoji:"💡", desc:"renowacja i zabezpieczenie reflektorów, folia PPF na małe elementy" },
-  { id:5, name:"Ekologiczna Renowacja Skór", emoji:"🌿", desc:"renowacja tapicerki skórzanej, ekologiczne środki, zrównoważony detailing" },
-  { id:6, name:"Agenci AI i Automatyzacja", emoji:"🤖", desc:"agenci AI, zielona transformacja, automatyzacja procesów biznesowych" },
-  { id:7, name:"Marketing w Social Mediach", emoji:"📱", desc:"Instagram, Facebook, Canva, komunikacja i marketing w social mediach" },
-  { id:8, name:"Microsoft 365 w praktyce", emoji:"💼", desc:"Excel, Word, PowerPoint, Outlook – efektywna praca biurowa" },
-  { id:9, name:"CapCut i AI – Wideo", emoji:"🎬", desc:"CapCut, AI, automatyzacja przetwarzania wideo i zarządzanie treścią cyfrową" },
+  { id:1, name:"Podstawy i Korekta Lakieru", emoji:"ðª", desc:"korekta lakieru, polerowanie, usuwanie rys i defektÃ³w, machine polishing" },
+  { id:2, name:"Aplikacja PowÅok Ochronnych", emoji:"ð¡ï¸", desc:"powÅoki ceramiczne, nano-ochrona, dÅugotrwaÅe zabezpieczenie lakieru" },
+  { id:3, name:"Folia PPF â Karoseria", emoji:"ð¨", desc:"kolorowa folia PPF na elementy karoserii samochodowej" },
+  { id:4, name:"Renowacja ReflektorÃ³w + PPF", emoji:"ð¡", desc:"renowacja i zabezpieczenie reflektorÃ³w, folia PPF na maÅe elementy" },
+  { id:5, name:"Ekologiczna Renowacja SkÃ³r", emoji:"ð¿", desc:"renowacja tapicerki skÃ³rzanej, ekologiczne Årodki, zrÃ³wnowaÅ¼ony detailing" },
+  { id:6, name:"Agenci AI i Automatyzacja", emoji:"ð¤", desc:"agenci AI, zielona transformacja, automatyzacja procesÃ³w biznesowych" },
+  { id:7, name:"Marketing w Social Mediach", emoji:"ð±", desc:"Instagram, Facebook, Canva, komunikacja i marketing w social mediach" },
+  { id:8, name:"Microsoft 365 w praktyce", emoji:"ð¼", desc:"Excel, Word, PowerPoint, Outlook â efektywna praca biurowa" },
+  { id:9, name:"CapCut i AI â Wideo", emoji:"ð¬", desc:"CapCut, AI, automatyzacja przetwarzania wideo i zarzÄdzanie treÅciÄ cyfrowÄ" },
 ];
 
 const POST_TYPES = [
-  { id:"informacyjny", label:"Informacyjny", icon:"ℹ️", hint:"Fakty o szkoleniu i dofinansowaniu" },
-  { id:"sprzedazowy", label:"Sprzedażowy", icon:"💰", hint:"Zachęca do zapisu, buduje pilność" },
-  { id:"storytelling", label:"Storytelling", icon:"📖", hint:"Historia zmiany, sukces uczestnika" },
-  { id:"edukacyjny", label:"Edukacyjny", icon:"🎓", hint:"Uczy, buduje autorytet eksperta" },
-  { id:"pytanie", label:"Pytanie / Angażujący", icon:"💬", hint:"Zwiększa zasięg organiczny" },
-  { id:"fomo", label:"Pilność / FOMO", icon:"⏰", hint:"Ograniczone miejsca, termin ucieka" },
+  { id:"informacyjny", label:"Informacyjny", icon:"â¹ï¸", hint:"Fakty o szkoleniu i dofinansowaniu" },
+  { id:"sprzedazowy", label:"SprzedaÅ¼owy", icon:"ð°", hint:"ZachÄca do zapisu, buduje pilnoÅÄ" },
+  { id:"storytelling", label:"Storytelling", icon:"ð", hint:"Historia zmiany, sukces uczestnika" },
+  { id:"edukacyjny", label:"Edukacyjny", icon:"ð", hint:"Uczy, buduje autorytet eksperta" },
+  { id:"pytanie", label:"Pytanie / AngaÅ¼ujÄcy", icon:"ð¬", hint:"ZwiÄksza zasiÄg organiczny" },
+  { id:"fomo", label:"PilnoÅÄ / FOMO", icon:"â°", hint:"Ograniczone miejsca, termin ucieka" },
 ];
 
 const TONES = [
-  { id:"profesjonalny", label:"Profesjonalny", icon:"👔" },
-  { id:"luzny", label:"Luźny i przyjacielski", icon:"😊" },
-  { id:"motywacyjny", label:"Motywacyjny", icon:"🔥" },
-  { id:"ekspercki", label:"Ekspercki / Autorytet", icon:"🏆" },
+  { id:"profesjonalny", label:"Profesjonalny", icon:"ð" },
+  { id:"luzny", label:"LuÅºny i przyjacielski", icon:"ð" },
+  { id:"motywacyjny", label:"Motywacyjny", icon:"ð¥" },
+  { id:"ekspercki", label:"Ekspercki / Autorytet", icon:"ð" },
 ];
 
 const PLATFORMS = [
-  { id:"instagram", label:"Instagram", icon:"📸" },
-  { id:"facebook", label:"Facebook", icon:"👥" },
-  { id:"oba", label:"Oba kanały", icon:"✨" },
+  { id:"instagram", label:"Instagram", icon:"ð¸" },
+  { id:"facebook", label:"Facebook", icon:"ð¥" },
+  { id:"oba", label:"Oba kanaÅy", icon:"â¨" },
 ];
 
 const EMOJIS = [
-  { id:"tak", label:"✅ Tak, używaj emoji" },
-  { id:"nie", label:"🚫 Bez emoji" },
+  { id:"tak", label:"â Tak, uÅ¼ywaj emoji" },
+  { id:"nie", label:"ð« Bez emoji" },
 ];
 
 let state = { course:null, type:null, platform:null, tone:null, emoji:"tak" };
@@ -394,7 +394,7 @@ let apiKey = localStorage.getItem("kg_api_key") || "";
 window.addEventListener("DOMContentLoaded", () => {
   if (apiKey) {
     document.getElementById("apiKeyInput").value = apiKey;
-    document.getElementById("apiKeyStatus").textContent = "✓ Klucz API zapisany";
+    document.getElementById("apiKeyStatus").textContent = "â Klucz API zapisany";
     document.getElementById("apiKeyStatus").className = "apikey-status ok";
   }
   renderAll();
@@ -405,7 +405,7 @@ function saveApiKey() {
   if (!val) return;
   apiKey = val;
   localStorage.setItem("kg_api_key", val);
-  document.getElementById("apiKeyStatus").textContent = "✓ Klucz API zapisany";
+  document.getElementById("apiKeyStatus").textContent = "â Klucz API zapisany";
   document.getElementById("apiKeyStatus").className = "apikey-status ok";
 }
 
@@ -460,7 +460,7 @@ function updateGenBtn() {
 
 async function generatePost() {
   if (!state.course || !state.type || !state.platform || !state.tone) return;
-  if (!apiKey) { showError("Wprowadź klucz API Anthropic na górze strony."); return; }
+  if (!apiKey) { showError("WprowadÅº klucz API Anthropic na gÃ³rze strony."); return; }
 
   const course = COURSES.find(c => c.id === state.course);
   const postType = POST_TYPES.find(p => p.id === state.type);
@@ -469,16 +469,16 @@ async function generatePost() {
   const context = document.getElementById("contextInput").value.trim();
 
   const platformInstructions = {
-    instagram: "Post na Instagram: max 2200 znaków, używaj paragrafów z odstępami, dodaj 10-15 hashtagów na końcu oddzielonych od treści pustą linią.",
-    facebook: "Post na Facebook: może być dłuższy (do 3000 znaków), bardziej opisowy i konwersacyjny, 3-5 hashtagów lub żadne.",
-    oba: "Napisz DWIE osobne wersje:\n\n📸 INSTAGRAM:\n(wersja z hashtagami, max 2200 znaków)\n\n👥 FACEBOOK:\n(wersja dłuższa, bardziej konwersacyjna)\n\nWyraźnie oznacz każdą sekcję.",
+    instagram: "Post na Instagram: max 2200 znakÃ³w, uÅ¼ywaj paragrafÃ³w z odstÄpami, dodaj 10-15 hashtagÃ³w na koÅcu oddzielonych od treÅci pustÄ liniÄ.",
+    facebook: "Post na Facebook: moÅ¼e byÄ dÅuÅ¼szy (do 3000 znakÃ³w), bardziej opisowy i konwersacyjny, 3-5 hashtagÃ³w lub Å¼adne.",
+    oba: "Napisz DWIE osobne wersje:\n\nð¸ INSTAGRAM:\n(wersja z hashtagami, max 2200 znakÃ³w)\n\nð¥ FACEBOOK:\n(wersja dÅuÅ¼sza, bardziej konwersacyjna)\n\nWyraÅºnie oznacz kaÅ¼dÄ sekcjÄ.",
   };
 
-  const prompt = `Jesteś ekspertem od marketingu w social mediach dla branży automotive i szkoleń zawodowych.\n\nNapisz post na social media dla firmy KG CONSULTING (Krzysztof Gregorek) oferującej profesjonalne szkolenia detailingowe i techniczne.\n\nSZKOLENIE: ${course.name}\nOPIS SZKOLENIA: ${course.desc}\n\nWAŻNE INFORMACJE O FIRMIE I DOFINANSOWANIU:\n- Szkolenie dostępne w Bazie Usług Rozwojowych PARP\n- Możliwość dofinansowania do 95% ze środków Unii Europejskiej (Fundusze Europejskie)\n- Cena szkolenia: od 5 200 zł brutto (20 godzin, 2 dni intensywne)\n- Lokalizacja: Zabrze lub Paniówki (region śląski)\n- Firma: KG CONSULTING Krzysztof Gregorek\n- Ocena uczestników: 4,9/5 na podstawie 223 ocen\n- Link do zapisów: https://uslugirozwojowe.parp.gov.pl/wyszukiwarka/dostawca-uslug/podglad?id=190292\n\nTYP POSTA: ${postType.label} – ${postType.hint}\nTON WYPOWIEDZI: ${tone.label}\nPLATFORMA: ${platform.label}\n${platformInstructions[state.platform]}\nEMOJI: ${state.emoji === "tak" ? "Używaj emoji – wzbogacają post i zwiększają zaangażowanie" : "NIE używaj żadnych emoji"}\n\n${context ? "DODATKOWE WSKAZÓWKI:\n"+context : ""}\n\nZASADY TWORZENIA POSTA:\n- Naturalny, autentyczny język po polsku\n- Podkreśl korzyść finansową z dofinansowania UE (to główny argument)\n- Nie brzmi jak natarczywa reklama – brzmi jak ekspercka rekomendacja lub ciekawa informacja\n- Call-to-action musi być konkretny i zachęcający\n- Pisz bezpośrednio do docelowego odbiorcy (właściciel warsztatu, detailer, pracownik chcący się dokształcić)\n\nNapisz TYLKO gotowy post (lub dwie wersje jeśli oba kanały). Bez żadnych komentarzy, tytułów, wstępów ani wyjaśnień.`;
+  const prompt = `JesteÅ ekspertem od marketingu w social mediach dla branÅ¼y automotive i szkoleÅ zawodowych.\n\nNapisz post na social media dla firmy KG CONSULTING (Krzysztof Gregorek) oferujÄcej profesjonalne szkolenia detailingowe i techniczne.\n\nSZKOLENIE: ${course.name}\nOPIS SZKOLENIA: ${course.desc}\n\nWAÅ»NE INFORMACJE O FIRMIE I DOFINANSOWANIU:\n- Szkolenie dostÄpne w Bazie UsÅug Rozwojowych PARP\n- MoÅ¼liwoÅÄ dofinansowania do 95% ze ÅrodkÃ³w Unii Europejskiej (Fundusze Europejskie)\n- Cena szkolenia: od 5 200 zÅ brutto (20 godzin, 2 dni intensywne)\n- Lokalizacja: Zabrze lub PaniÃ³wki (region ÅlÄski)\n- Firma: KG CONSULTING Krzysztof Gregorek\n- Ocena uczestnikÃ³w: 4,9/5 na podstawie 223 ocen\n- Link do zapisÃ³w: https://uslugirozwojowe.parp.gov.pl/wyszukiwarka/dostawca-uslug/podglad?id=190292\n\nTYP POSTA: ${postType.label} â ${postType.hint}\nTON WYPOWIEDZI: ${tone.label}\nPLATFORMA: ${platform.label}\n${platformInstructions[state.platform]}\nEMOJI: ${state.emoji === "tak" ? "UÅ¼ywaj emoji â wzbogacajÄ post i zwiÄkszajÄ zaangaÅ¼owanie" : "NIE uÅ¼ywaj Å¼adnych emoji"}\n\n${context ? "DODATKOWE WSKAZÃWKI:\n"+context : ""}\n\nZASADY TWORZENIA POSTA:\n- Naturalny, autentyczny jÄzyk po polsku\n- PodkreÅl korzyÅÄ finansowÄ z dofinansowania UE (to gÅÃ³wny argument)\n- Nie brzmi jak natarczywa reklama â brzmi jak ekspercka rekomendacja lub ciekawa informacja\n- Call-to-action musi byÄ konkretny i zachÄcajÄcy\n- Pisz bezpoÅrednio do docelowego odbiorcy (wÅaÅciciel warsztatu, detailer, pracownik chcÄcy siÄ doksztaÅciÄ)\n\nNapisz TYLKO gotowy post (lub dwie wersje jeÅli oba kanaÅy). Bez Å¼adnych komentarzy, tytuÅÃ³w, wstÄpÃ³w ani wyjaÅnieÅ.`;
 
   const btn = document.getElementById("genBtn");
   btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span><span class="loading-text">Generuję post</span>';
+  btn.innerHTML = '<span class="spinner"></span><span class="loading-text">GenerujÄ post</span>';
   document.getElementById("errorBox").style.display = "none";
 
   try {
@@ -491,7 +491,7 @@ async function generatePost() {
         "anthropic-dangerous-direct-browser-access": "true",
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
+        model: "claude-sonnet-4-6",
         max_tokens: 1200,
         messages: [{ role: "user", content: prompt }],
       }),
@@ -499,7 +499,7 @@ async function generatePost() {
 
     if (!response.ok) {
       const err = await response.json().catch(() => ({}));
-      throw new Error(err.error?.message || `Błąd HTTP ${response.status}`);
+      throw new Error(err.error?.message || `BÅÄd HTTP ${response.status}`);
     }
 
     const data = await response.json();
@@ -508,11 +508,11 @@ async function generatePost() {
     document.getElementById("outputSection").style.display = "block";
     document.getElementById("outputSection").scrollIntoView({ behavior: "smooth", block: "nearest" });
   } catch (e) {
-    showError("Błąd generowania: " + e.message);
+    showError("BÅÄd generowania: " + e.message);
   }
 
   btn.disabled = false;
-  btn.innerHTML = "✦ Generuj post";
+  btn.innerHTML = "â¦ Generuj post";
 }
 
 function showError(msg) {
@@ -525,7 +525,7 @@ function copyPost() {
   const text = document.getElementById("outputBox").textContent;
   navigator.clipboard.writeText(text).then(() => {
     const btn = document.getElementById("copyBtn");
-    btn.textContent = "✓ Skopiowano!";
+    btn.textContent = "â Skopiowano!";
     btn.classList.add("copied");
     setTimeout(() => { btn.textContent = "Kopiuj"; btn.classList.remove("copied"); }, 2200);
   });
@@ -537,7 +537,7 @@ function downloadPost() {
   const now = new Date();
   const dateStr = now.toLocaleDateString("pl-PL", { day:"2-digit", month:"2-digit", year:"numeric" });
   const escapedText = text.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br>");
-  const html2 = `<!DOCTYPE html><html lang="pl"><head><meta charset="UTF-8"><title>Post KG – ${dateStr}</title><style>body{background:#0a0a0f;color:#e8e4d8;font-family:sans-serif;padding:40px;max-width:680px;margin:0 auto;line-height:1.8;}</style></head><body><h2 style="color:#d4a017;margin-bottom:20px;">KG CONSULTING — ${course?course.name:"Post"}</h2><div>${escapedText}</div><p style="color:#4a4038;font-size:11px;margin-top:30px;">${dateStr}</p></body></html>`;
+  const html2 = `<!DOCTYPE html><html lang="pl"><head><meta charset="UTF-8"><title>Post KG â ${dateStr}</title><style>body{background:#0a0a0f;color:#e8e4d8;font-family:sans-serif;padding:40px;max-width:680px;margin:0 auto;line-height:1.8;}</style></head><body><h2 style="color:#d4a017;margin-bottom:20px;">KG CONSULTING â ${course?course.name:"Post"}</h2><div>${escapedText}</div><p style="color:#4a4038;font-size:11px;margin-top:30px;">${dateStr}</p></body></html>`;
   const blob = new Blob([html2], { type: "text/html;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
